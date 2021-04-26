@@ -1,0 +1,10 @@
+mkdir /tmp/ssh/{keys,data} -p
+mkdir -p /tmp/ssh/root/.ssh/
+cp ${HOME}/.ssh/id_rsa.pub /tmp/ssh/root/.ssh/authorized_keys
+sudo chown root:root /tmp/ssh/root/.ssh/authorized_keys
+
+
+cp ~/.ssh/id_rsa.pub /tmp/.ssh/
+sudo chown 48:48 /tmp/.ssh/id_rsa.pub
+
+docker run --rm  -ti -p 2222:22   -v /tmp/ssh/keys/:/etc/ssh/keys -v /tmp/.ssh/id_rsa.pub:/etc/authorized_keys/www:ro    -v /tmp/ssh/root/.ssh/authorized_keys:/root/.ssh/authorized_keys:ro -e SSH_ENABLE_ROOT=true -v /tmp/ssh/data/:/data/   -e SSH_USERS="www:48:48"   sshd/sshd:latest
