@@ -15,6 +15,10 @@ TMUX_VERSION=2.9a
 NCURSES_VERSION=6.1
 LIBEVENT_VERSION=2.1.10
 
+TMUX_VERSION=3.2
+NCURSES_VERSION=6.2
+LIBEVENT_VERSION=2.1.12
+
 BASEDIR=${HOME}/work/tmux-static
 TMUXTARGET=${BASEDIR}/local
 mkdir -p $TMUXTARGET
@@ -36,7 +40,7 @@ if [ ! -d libevent-${LIBEVENT_VERSION}-stable ]; then
 	cd ${BASEDIR}
 	tar -xzf libevent-${LIBEVENT_VERSION}-stable.tar.gz
 	cd ${BASEDIR}/libevent-${LIBEVENT_VERSION}-stable
-	./configure --prefix=$TMUXTARGET --disable-shared
+	./configure --prefix=$TMUXTARGET --disable-shared --disable-openssl
 	make && make install
 fi
 
